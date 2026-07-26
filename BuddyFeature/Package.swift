@@ -85,8 +85,9 @@ let package = Package(
             .product(name: "Nuke", package: "Nuke"),
             .product(name: "NukeUI", package: "Nuke"),
 						.product(
-							name: "ChannelIOSDK",
-							package: "channel-talk-ios-framework"
+						  name: "ChannelIOSDK",
+						  package: "channel-talk-ios-framework",
+						  condition: .when(platforms: [.iOS])
 						),
           ]
         ),

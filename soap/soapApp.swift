@@ -16,7 +16,9 @@ import BuddyDataCore
 import AppIntents
 import FirebaseAnalytics
 import SwiftData
+#if os(iOS)
 import ChannelIOFront
+#endif
 import FirebaseCrashlytics
 
 let logger = SwiftyBeaver.self
@@ -56,7 +58,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
       try? await authUseCase?.refreshAccessToken(force: true)
       await userUseCase?.fetchUsers()
 			
-			// ChannelTalk
+			#if os(iOS)
+			// ChannelTalk is currently an iOS-only integration. Keep it out of
+			// the first macOS build experiment until the SDK's platform support
+			// is confirmed.
 			ChannelIO.initialize(application)
 			
 			let profile = await CHTProfile()
@@ -77,6 +82,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 			
 			ChannelIO.boot(with: bootConfig)
 			ChannelIO.hideChannelButton()
+			#endif
     }
 	
 
